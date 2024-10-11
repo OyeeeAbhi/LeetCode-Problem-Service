@@ -1,12 +1,17 @@
 const httpStatusCodes = require('http-status-codes');
+const BadRequest = require('../errors/badrequest.error');
 
 
 function pingProblemController(req , res){
     return res.json({message : 'ping problem controller is up'});
 }
 
-function addProblem(req , res){
-    return res.status(httpStatusCodes.NOT_IMPLEMENTED).json({message : 'Not Implemented'})
+function addProblem(req , res , next){
+    try{
+        throw new BadRequest('Problem Name' , {missing : ["problem name"]});
+    }catch(error){
+        next(error);
+    }
 }
 
 function getProblem(req , res){
