@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const {PORT} = require('./config/server.js');
 const apiRouter = require('./routes/index.js');
 const errorHandler = require('./utils/errorHandler.js');
+const connectToDB = require('./config/db.config.js');
 
 const app = express();
 
@@ -23,6 +24,8 @@ app.get('/ping' , (req , res) =>{
 app.use(errorHandler);
 
 
-app.listen(PORT , ()=>{
+app.listen(PORT , async ()=>{
     console.log('listening on port : ' , PORT);
+    const dbConnectionResult = await connectToDB();
+    console.log(dbConnectionResult);
 })
