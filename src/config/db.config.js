@@ -4,7 +4,9 @@ const { ATLAS_DB_URL , NODE_ENV } = require('./server');
 async function connectToDB(){
     try{
         if(NODE_ENV == 'development'){
-            await mongoose.connect(ATLAS_DB_URL)
+            await mongoose.connect(ATLAS_DB_URL , {
+                family: 4,
+            })
             return 'successfull connection to DB'
         }    
     }catch(error){
@@ -12,5 +14,4 @@ async function connectToDB(){
         return 'error connecting to the DB'
     }
 }
-connectToDB()
 module.exports = connectToDB;
